@@ -20,11 +20,19 @@ use App\Traits\StatusScope;
  * @property int $cartao_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property Cartao $cartao
  * @property \Illuminate\Database\Eloquent\Collection $clientesProdutos
- *
  * @package App\Entities
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido ativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido inativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereCartaoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido wherePagamentoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Pedido whereValorTotal($value)
+ * @mixin \Eloquent
  */
 class Pedido extends Eloquent
 {

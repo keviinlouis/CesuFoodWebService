@@ -2,6 +2,39 @@
 namespace App\Entities;
 
 
+/**
+ * App\Entities\Arquivo
+ *
+ * @property int $id
+ * @property string $path
+ * @property string $nome
+ * @property string $extensao
+ * @property string $url
+ * @property int $tipo
+ * @property string|null $descricao
+ * @property int $entidade_id
+ * @property string $entidade_type
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entidade
+ * @property-read string $nome_com_extensao
+ * @property-read mixed $nome_thumb
+ * @property-read mixed $path_sem_nome
+ * @property-read mixed $path_thumb
+ * @property-read mixed $url_thumb
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereDescricao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereEntidadeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereEntidadeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereExtensao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereNome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereTipo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereUrl($value)
+ * @mixin \Eloquent
+ */
 class Arquivo extends Entity
 {
     public static $snakeAttributes = false;

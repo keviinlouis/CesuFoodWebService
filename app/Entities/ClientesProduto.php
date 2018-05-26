@@ -21,13 +21,22 @@ use App\Traits\StatusScope;
  * @property int $administrador_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
  * @property Administrador $administrador
  * @property Cliente $cliente
  * @property Pedido $pedido
  * @property Produto $produto
- *
  * @package App\Entities
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto ativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto inativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereAdministradorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereClienteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto wherePedidoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereProdutoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class ClientesProduto extends Eloquent
 {

@@ -22,10 +22,16 @@ use App\Traits\StatusScope;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- *
  * @property \Illuminate\Database\Eloquent\Collection $clientesProdutos
- *
  * @package App\Entities
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador ativos()
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador inativos()
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withoutTrashed()
+ * @mixin \Eloquent
  */
 class Administrador extends Eloquent
 {
