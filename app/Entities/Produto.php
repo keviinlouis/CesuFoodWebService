@@ -8,10 +8,11 @@
 namespace App\Entities;
 
 use App\Entities\Entity as Eloquent;
+use App\Traits\StatusScope;
 
 /**
  * Class Produto
- * 
+ *
  * @property int $id
  * @property string $nome
  * @property string $descricao
@@ -19,13 +20,14 @@ use App\Entities\Entity as Eloquent;
  * @property int $status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $clientes
  *
  * @package App\Entities
  */
 class Produto extends Eloquent
 {
+    use StatusScope;
 	public static $snakeAttributes = false;
 
 	protected $casts = [
@@ -40,10 +42,8 @@ class Produto extends Eloquent
 		'status'
 	];
 
-	public function clientes()
+	public function clientesProduto()
 	{
-		return $this->belongsToMany(\App\Entities\Cliente::class, 'clientes_produtos')
-					->withPivot('id', 'status', 'pedido_id', 'administrador_id')
-					->withTimestamps();
+		return $this->hasMany(ClientesProduto::class);
 	}
 }

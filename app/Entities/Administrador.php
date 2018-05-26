@@ -7,7 +7,8 @@
 
 namespace App\Entities;
 
-use App\Entities\Entity as Eloquent;
+use App\Entities\User as Eloquent;
+use App\Traits\StatusScope;
 
 /**
  * Class Administrador
@@ -28,7 +29,7 @@ use App\Entities\Entity as Eloquent;
  */
 class Administrador extends Eloquent
 {
-	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \Illuminate\Database\Eloquent\SoftDeletes, StatusScope;
 	public static $snakeAttributes = false;
 
 	protected $casts = [
@@ -50,6 +51,11 @@ class Administrador extends Eloquent
 
 	public function clientesProdutos()
 	{
-		return $this->hasMany(\App\Entities\ClientesProduto::class, 'administrador_id');
+		return $this->hasMany(ClientesProduto::class, 'administrador_id');
 	}
+
+    function getClassAuth(): string
+    {
+        return self::class;
+    }
 }

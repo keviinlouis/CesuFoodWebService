@@ -8,6 +8,7 @@
 namespace App\Entities;
 
 use App\Entities\Entity as Eloquent;
+use App\Traits\StatusScope;
 
 /**
  * Class ClientesProduto
@@ -21,15 +22,16 @@ use App\Entities\Entity as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @property \App\Entities\Administrador $administrador
- * @property \App\Entities\Cliente $cliente
- * @property \App\Entities\Pedido $pedido
- * @property \App\Entities\Produto $produto
+ * @property Administrador $administrador
+ * @property Cliente $cliente
+ * @property Pedido $pedido
+ * @property Produto $produto
  *
  * @package App\Entities
  */
 class ClientesProduto extends Eloquent
 {
+    use StatusScope;
 	public static $snakeAttributes = false;
 
 	protected $casts = [
@@ -50,21 +52,21 @@ class ClientesProduto extends Eloquent
 
 	public function administrador()
 	{
-		return $this->belongsTo(\App\Entities\Administrador::class, 'administrador_id');
+		return $this->belongsTo(Administrador::class, 'administrador_id');
 	}
 
 	public function cliente()
 	{
-		return $this->belongsTo(\App\Entities\Cliente::class);
+		return $this->belongsTo(Cliente::class);
 	}
 
 	public function pedido()
 	{
-		return $this->belongsTo(\App\Entities\Pedido::class);
+		return $this->belongsTo(Pedido::class);
 	}
 
 	public function produto()
 	{
-		return $this->belongsTo(\App\Entities\Produto::class);
+		return $this->belongsTo(Produto::class);
 	}
 }

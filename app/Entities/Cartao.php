@@ -23,7 +23,7 @@ use App\Entities\Entity as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
  *
- * @property \App\Entities\Cliente $cliente
+ * @property Cliente $cliente
  * @property \Illuminate\Database\Eloquent\Collection $pedidos
  *
  * @package App\Entities
@@ -49,11 +49,11 @@ class Cartao extends Eloquent
 
 	public function cliente()
 	{
-		return $this->belongsTo(\App\Entities\Cliente::class);
+		return $this->belongsTo(Cliente::class);
 	}
 
 	public function pedidos()
 	{
-		return $this->hasMany(\App\Entities\Pedido::class, 'cartao_id');
+		return $this->hasMany(Pedido::class, 'cartao_id');
 	}
 }

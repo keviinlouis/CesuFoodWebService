@@ -7,7 +7,8 @@
 
 namespace App\Entities;
 
-use App\Entities\Entity as Eloquent;
+use App\Entities\User as Eloquent;
+use App\Traits\StatusScope;
 
 /**
  * Class Cliente
@@ -28,7 +29,7 @@ use App\Entities\Entity as Eloquent;
  */
 class Cliente extends Eloquent
 {
-	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \Illuminate\Database\Eloquent\SoftDeletes, StatusScope;
 	public static $snakeAttributes = false;
 
 	protected $casts = [
@@ -48,13 +49,21 @@ class Cliente extends Eloquent
 
 	public function cartoes()
 	{
-		return $this->hasMany(\App\Entities\Cartao::class);
+		return $this->hasMany(Cartao::class);
 	}
 
-	public function produtos()
-	{
-		return $this->belongsToMany(\App\Entities\Produto::class, 'clientes_produtos')
-					->withPivot('id', 'status', 'pedido_id', 'administrador_id')
-					->withTimestamps();
+    public function clientesProduto()
+    {
+        return $this->hasMany(ClientesProduto::class);
+    }
+
+    public function pedidos()
+    {
+        return $this->hasManyThrough(Pedido::class, Cartao::class, 'cliente_id', 'cartao_id');
 	}
+
+    function getClassAuth(): string
+    {
+        return self::class;
+    }
 }
