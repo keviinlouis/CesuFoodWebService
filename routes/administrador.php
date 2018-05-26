@@ -7,3 +7,7 @@
  */
 
 Route::post('login', 'AdministradorController@login');
+
+Route::group(['middleware' => 'jwt:administrador'], function(){
+
+});

@@ -7,3 +7,7 @@
  */
 
 Route::post('login', 'ClienteController@login');
+
+Route::group(['middleware' => 'jwt:cliente'], function(){
+
+});

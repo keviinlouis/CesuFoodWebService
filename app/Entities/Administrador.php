@@ -36,7 +36,13 @@ use App\Traits\StatusScope;
 class Administrador extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes, StatusScope;
-	public static $snakeAttributes = false;
+    const MASTER = 0;
+    const FUNCIONARIO = 1;
+
+    const ATIVO = 1;
+    const INATIVO = 0;
+    public static $snakeAttributes = false;
+	protected $table = 'administradores';
 
 	protected $casts = [
 		'cargo' => 'int',

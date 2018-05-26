@@ -15,9 +15,12 @@ class AdminSeed extends Seeder
             [
                 'id' => 1,
                 'nome' => 'Administrador Teste',
-                'email' => 'master@master.com',
+                'email' => 'master@mail.com',
                 'senha' => Hash::make('123456'),
-                'is_master' => 1
+                'cargo' => \App\Entities\Administrador::MASTER,
+                'status' => \App\Entities\Administrador::ATIVO,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ];
 
