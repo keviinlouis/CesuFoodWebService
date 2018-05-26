@@ -32,6 +32,15 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereCargo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereNome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereSenha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereUpdatedAt($value)
  */
 class Administrador extends Eloquent
 {
@@ -41,7 +50,9 @@ class Administrador extends Eloquent
 
     const ATIVO = 1;
     const INATIVO = 0;
+
     public static $snakeAttributes = false;
+
 	protected $table = 'administradores';
 
 	protected $casts = [

@@ -13,6 +13,7 @@
 namespace App\Services;
 
 use App\Entities\Cliente;
+use App\Exceptions\ExceptionWithData;
 use App\Validators\ClienteRules;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -141,12 +142,9 @@ class ClienteService extends Service
         $this->validateWithArray($data, ClienteRules::login());
         $model = Cliente::whereEmail($data->get('email'))->first();
 
-        throw_if(
-            !$model->checkSenha($data->get('senha')),
-            \Exception::class,
-            'Senha inválida',
-            Response::HTTP_UNAUTHORIZED
-        );
+        if(!$model->checkSenha($data->get('senha'))){
+            throw new ExceptionWithData('Dados Inválidos', Response::HTTP_BAD_REQUEST, ['senha' => ['senha inválida']]);
+        }
 
         return $model;
     }

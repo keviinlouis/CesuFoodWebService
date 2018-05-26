@@ -13,6 +13,7 @@
 namespace App\Services;
 
 use App\Entities\Administrador;
+use App\Exceptions\ExceptionWithData;
 use App\Validators\AdministradorRules;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -139,14 +140,12 @@ class AdministradorService extends Service
     public function login(Collection $data): Administrador
     {
         $this->validateWithArray($data, AdministradorRules::login());
+
         $model = Administrador::whereEmail($data->get('email'))->first();
 
-        throw_if(
-            !$model->checkSenha($data->get('senha')),
-            \Exception::class,
-            'Senha inválida',
-            Response::HTTP_UNAUTHORIZED
-        );
+        if(!$model->checkSenha($data->get('senha'))){
+            throw new ExceptionWithData('Dados Inválidos', Response::HTTP_BAD_REQUEST, ['senha' => ['senha inválida']]);
+        }
 
         return $model;
     }

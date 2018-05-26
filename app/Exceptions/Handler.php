@@ -93,6 +93,10 @@ class Handler extends ExceptionHandler
             'message' => $exception->getMessage()
         ];
 
+        if($exception instanceof ExceptionWithData){
+            $response['data'] = $exception->getData();
+        }
+
         if ($exception instanceof TokenBlacklistedException) {
             $code = Response::HTTP_UNAUTHORIZED;
             $response['message'] = 'Token expirou';

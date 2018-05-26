@@ -23,7 +23,8 @@ class ValidationResource extends JsonResource
     {
         $response = [
             'success' => false,
-            'message' => $this->resource->validator->errors()->first(),
+            'message' => 'Dados Inválidos',
+            'data' => $this->resource->validator->errors()
         ];
 
         if (env('APP_ENV') != 'production') {
