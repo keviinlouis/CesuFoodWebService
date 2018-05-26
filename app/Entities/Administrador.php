@@ -81,4 +81,9 @@ class Administrador extends Eloquent
     {
         return self::class;
     }
+
+    public function isMaster()
+    {
+        return $this->cargo == self::MASTER;
+    }
 }

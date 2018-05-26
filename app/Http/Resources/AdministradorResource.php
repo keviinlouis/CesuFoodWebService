@@ -29,7 +29,13 @@ class AdministradorResource extends Resource
      */
     public function toResource($resource)
     {
-        $data = $resource->toArray();
+        $data = [
+            'id' => $resource->getKey(),
+            'nome' => $resource->nome,
+            'email' => $resource->email,
+            'cargo' => $resource->cargo,
+            'is_master' => $resource->isMaster()
+        ];
 
         return $data;
     }
