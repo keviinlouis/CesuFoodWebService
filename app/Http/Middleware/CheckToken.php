@@ -68,8 +68,8 @@ class CheckToken extends BaseMiddleware
 
     public function checkModels($class, $guard)
     {
-       $classAuth = $this->getClassBybGuard($guard);
+        $classAuth = $this->getClassBybGuard($guard);
 
-       return $classAuth == $class;
+        return $classAuth == $class;
     }
 }

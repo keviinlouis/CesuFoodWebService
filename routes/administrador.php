@@ -8,6 +8,6 @@
 
 Route::post('login', 'AdministradorController@login');
 
-Route::group(['middleware' => 'jwt:administrador'], function(){
-
+Route::group(['middleware' => 'jwt:admin'], function(){
+    Route::get('me', 'AdministradorController@me');
 });
