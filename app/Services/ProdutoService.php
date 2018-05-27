@@ -14,6 +14,7 @@ namespace App\Services;
 
 use App\Entities\Produto;
 use App\Validators\ProdutoRules;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,7 +53,23 @@ class ProdutoService extends Service
 
         $query = Produto::with($this->relations);
 
-        $order = $filters->get('desc', false) ? 'desc' : 'asc';
+        if($categoria = $filters->get('categoria')){
+            $query->whereCategoriaId($categoria);
+        }
+
+        if($valor = $filters->get('valor')){
+            $query->whereValor($valor);
+        }
+
+        if($search = $filters->get('search')){
+            $query->where(function(Builder $builder) use ($search) {
+                $search = '%'.$search.'%';
+               $builder->where('nome', 'like', $search);
+               $builder->orWhere('descricao', 'like', $search);
+            });
+        }
+
+        $order = $filters->get('order', 'asc');
 
         $sortBy = $filters->get('sort', 'id');
 

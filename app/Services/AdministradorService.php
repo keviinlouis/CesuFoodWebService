@@ -54,7 +54,7 @@ class AdministradorService extends Service
 
         $query = Administrador::with($this->relations);
 
-        $order = $filters->get('desc', false) ? 'desc' : 'asc';
+        $order = $filters->get('order', 'asc');
 
         $sortBy = $filters->get('sort', 'id');
 

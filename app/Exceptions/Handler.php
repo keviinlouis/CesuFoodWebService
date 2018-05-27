@@ -127,7 +127,6 @@ class Handler extends ExceptionHandler
             $response['message'] = "Recurso não encontrado";
             $response['data'] = end($model);
             $code = Response::HTTP_NOT_FOUND;
-            $headers = $exception->getHeaders();
         }
 
         if ($exception instanceof NotFoundHttpException) {
