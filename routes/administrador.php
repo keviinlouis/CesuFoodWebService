@@ -10,4 +10,7 @@ Route::post('login', 'AdministradorController@login');
 
 Route::group(['middleware' => 'jwt:admin'], function(){
     Route::get('me', 'AdministradorController@me');
+
+    Route::apiResource('produto', 'ProdutoController');
+    Route::apiResource('categoria', 'CategoriaController');
 });

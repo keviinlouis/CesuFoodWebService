@@ -24,6 +24,8 @@ use App\Traits\StatusScope;
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \App\Entities\Categoria $categoria
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\ClientesProduto[] $clientesProduto
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\Arquivo[] $fotos
+ * @property-read mixed $url_fotos
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto ativos()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto inativos()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereCategoriaId($value)
@@ -35,6 +37,7 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereValor($value)
  * @mixin \Eloquent
+
  */
 class Produto extends Eloquent
 {
@@ -63,5 +66,25 @@ class Produto extends Eloquent
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+	}
+
+    public function fotos()
+    {
+        return $this->morphMany(Arquivo::class, 'entidade');
+	}
+
+    public function getUrlFotosAttribute()
+    {
+        $urls = [];
+
+        $this->fotos->each(function(Arquivo $arquivo) use (&$urls){
+            $urls[] = $arquivo->url_thumb;
+        });
+
+        if(count($urls) <= 0){
+            $urls[] = asset('assets/images/produto-sem-imagem.png');
+        }
+
+        return collect($urls);
 	}
 }
