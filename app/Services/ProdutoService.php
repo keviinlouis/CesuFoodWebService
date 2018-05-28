@@ -65,7 +65,6 @@ class ProdutoService extends Service
             $query->where(function(Builder $builder) use ($search) {
                 $search = '%'.$search.'%';
                $builder->where('nome', 'like', $search);
-               $builder->orWhere('descricao', 'like', $search);
             });
         }
 
