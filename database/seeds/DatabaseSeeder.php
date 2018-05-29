@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AdminSeed::class);
+        $this->call(CategoriasTableSeed::class);
 
         if(env('APP_ENV') != 'production'){
             $this->call(TestesSeed::class);

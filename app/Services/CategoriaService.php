@@ -54,7 +54,7 @@ class CategoriaService extends Service
 
         $order = $filters->get('order', 'asc');
 
-        $sortBy = $filters->get('sort', 'id');
+        $sortBy = $filters->get('sort', 'nome');
 
         $limit = $filters->get('limit', 15);
 

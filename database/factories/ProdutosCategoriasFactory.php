@@ -12,7 +12,7 @@ $factory->define(App\Entities\Categoria::class, function () use ($faker) {
 });
 
 $factory->define(App\Entities\Produto::class, function () use ($faker) {
-    if(\App\Entities\Categoria::count() < 10){
+    if(\App\Entities\Categoria::count() < 5){
         factory(\App\Entities\Categoria::class, 10)->create();
     }
     $data = [

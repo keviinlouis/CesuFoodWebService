@@ -37,7 +37,6 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereValor($value)
  * @mixin \Eloquent
-
  */
 class Produto extends Eloquent
 {
