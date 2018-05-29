@@ -106,6 +106,14 @@ class ProdutoService extends Service
 
         $model = Produto::create($data->all());
 
+        foreach($data->get('fotos') as $foto){
+            $model->fotos()->create([
+                'nome' => $foto,
+                'path' => $model->getPublicPathFiles(),
+                'tipo' => Produto::FOTO
+            ]);
+        }
+
         return $this->show($model);
     }
 
@@ -125,6 +133,19 @@ class ProdutoService extends Service
         $model = $this->show($id);
 
         $model->update($data->all());
+
+        foreach($data->get('fotos_adicionadas') as $foto){
+            $model->fotos()->create([
+                'nome' => $foto,
+                'path' => $model->getPublicPathFiles(),
+                'tipo' => Produto::FOTO
+            ]);
+        }
+
+        $fotosRemovidas = $model->fotos()->whereIn('nome', $data->get('fotos_removidas'))->get();
+        foreach($fotosRemovidas as $foto){
+            $foto->delete();
+        }
 
         return $this->show($model);
     }

@@ -9,11 +9,8 @@
 namespace App\Observers;
 
 use App\Entities\Arquivo;
-use App\Entities\Cliente;
-use App\Entities\Modelo;
-use App\Entities\Veiculo;
+use App\Entities\Produto;
 use App\Services\FileService;
-use App\Traits\CheckOriginalAttribute;
 
 class ArquivoObserver extends Observer
 {
@@ -25,11 +22,11 @@ class ArquivoObserver extends Observer
     }
 
     protected $tiposRemoviveisAoRemoverDoBanco = [
-        // TODO Preencher Tipo de arquivos que irão ser removidas ao remover o arquivo do banco
+        Produto::FOTO
     ];
 
     protected $tiposComThumb = [
-        // TODO Preencher Tipo de fotos com thumb
+        Produto::FOTO
     ];
 
     /**

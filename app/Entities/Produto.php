@@ -8,6 +8,7 @@
 namespace App\Entities;
 
 use App\Entities\Entity as Eloquent;
+use App\Traits\Files;
 use App\Traits\StatusScope;
 
 
@@ -40,8 +41,9 @@ use App\Traits\StatusScope;
  */
 class Produto extends Eloquent
 {
-    use StatusScope;
-	public static $snakeAttributes = false;
+    use StatusScope, Files;
+    const FOTO = 'PRODUTO_FOTO';
+    public static $snakeAttributes = false;
 
 	protected $casts = [
 		'valor' => 'float',
