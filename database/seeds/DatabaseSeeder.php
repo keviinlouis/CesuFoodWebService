@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeed::class);
 
         if(env('APP_ENV') != 'production'){
-//            $this->call(TestesSeed::class);
+            $this->call(TestesSeed::class);
         }
     }
 }
