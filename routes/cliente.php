@@ -11,9 +11,12 @@ Route::post('cadastro', 'ClienteController@store');
 
 Route::group(['middleware' => 'jwt:cliente'], function(){
     Route::get('me', 'ClienteController@me');
+
     Route::put('me', 'ClienteController@update');
     Route::delete('me', 'ClienteController@destroy');
 
+    Route::get('me/produto', 'ProdutoController@meusProdutos');
+    Route::get('me/produto/{id}', 'ProdutoController@meuProduto');
     Route::get('produto', 'ProdutoController@index');
     Route::get('produto/{id}', 'ProdutoController@show');
 

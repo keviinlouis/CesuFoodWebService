@@ -17,6 +17,7 @@ class CreateClientesProdutosTable extends Migration {
 			$table->increments('id');
 			$table->integer('status')->default(0);
 			$table->double('valor', 10, 2)->default(0);
+			$table->string('hash', 191);
 			$table->integer('cliente_id')->unsigned()->index('fk_clientes_produtos_clientes_idx');
 			$table->integer('produto_id')->unsigned()->index('fk_clientes_produtos_produtos1_idx');
 			$table->integer('pedido_id')->unsigned()->index('fk_clientes_produtos_pedidos1_idx');

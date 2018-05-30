@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers\Administrador;
 
+use App\Entities\ClientesProduto;
 use App\Http\Resources\ProdutoResource;
 use App\Services\ProdutoService;
 use App\Http\Requests\Request;
@@ -102,5 +103,12 @@ class ProdutoController extends Controller
         $model = $this->produtoService->delete($id);
 
         return new ProdutoResource($model);
+    }
+
+    public function vender(Request $request)
+    {
+        $model = $this->produtoService->vender($request->toCollection());
+
+        return new ClientesProduto($model);
     }
 }

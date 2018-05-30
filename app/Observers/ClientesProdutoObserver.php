@@ -10,9 +10,20 @@ namespace App\Observers;
 
 
 use App\Entities\ClientesProduto;
+use Illuminate\Support\Str;
 
 class ClientesProdutoObserver extends Observer
 {
+    public function creating(ClientesProduto $clientesProduto)
+    {
+        $clientesProduto->hash = Str::uuid();
+    }
+
+    /**
+     * @param ClientesProduto $clientesProduto
+     * @throws \LaravelQRCode\Exceptions\EmptyTextException
+     * @throws \LaravelQRCode\Exceptions\MalformedUrlException
+     */
     public function updated(ClientesProduto $clientesProduto)
     {
         if($this->isNotEqual('status', $clientesProduto)){

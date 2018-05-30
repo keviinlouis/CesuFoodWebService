@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.6.23 on 2018-05-29 21:31:27.
+ * Generated for Laravel 5.6.23 on 2018-05-30 13:16:57.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -14263,6 +14263,148 @@ namespace Tymon\JWTAuth\Facades {
  
 }
 
+namespace LaravelQRCode\Facades { 
+
+    class QRCode {
+        
+        /**
+         * Returns as QR_CalendarEvent object
+         *
+         * @param \DateTime $start
+         * @param \DateTime $end
+         * @param string $summary
+         * @param string $description
+         * @param string $location
+         * @return \QR_Code\Types\QR_CalendarEvent 
+         * @throws \QR_Code\Exceptions\EmptyEventSummaryException
+         * @throws \QR_Code\Exceptions\InvalidEventDateException
+         * @static 
+         */ 
+        public static function calendar($start, $end, $summary, $description, $location)
+        {
+            return \LaravelQRCode\QRCodeFactory::calendar($start, $end, $summary, $description, $location);
+        }
+        
+        /**
+         * Returns a QR_EmailMessage object
+         *
+         * @param string $toEmail
+         * @param string $body
+         * @param string $subject
+         * @return \QR_Code\Types\QR_EmailMessage 
+         * @throws \LaravelQRCode\Exceptions\EmptyTextException
+         * @static 
+         */ 
+        public static function email($toEmail, $body, $subject)
+        {
+            return \LaravelQRCode\QRCodeFactory::email($toEmail, $body, $subject);
+        }
+        
+        /**
+         * Returns a QR_meCard object
+         *
+         * @param string $name
+         * @param string $address
+         * @param string $phone
+         * @param string $email
+         * @return \QR_Code\Types\QR_meCard 
+         * @static 
+         */ 
+        public static function meCard($name, $address, $phone, $email)
+        {
+            return \LaravelQRCode\QRCodeFactory::meCard($name, $address, $phone, $email);
+        }
+        
+        /**
+         * Returns a QR_Phone object
+         *
+         * @param string $number
+         * @return \QR_Code\Types\QR_Phone 
+         * @static 
+         */ 
+        public static function phone($number)
+        {
+            return \LaravelQRCode\QRCodeFactory::phone($number);
+        }
+        
+        /**
+         * Return a QR_Sms object
+         *
+         * @param string $number
+         * @param string $text
+         * @return \QR_Code\Types\QR_Sms 
+         * @static 
+         */ 
+        public static function sms($number, $text)
+        {
+            return \LaravelQRCode\QRCodeFactory::sms($number, $text);
+        }
+        
+        /**
+         * Returns a QR_Text object
+         *
+         * @param string $data
+         * @return \QR_Code\Types\QR_Text 
+         * @throws \LaravelQRCode\Exceptions\EmptyTextException
+         * @static 
+         */ 
+        public static function text($data)
+        {
+            return \LaravelQRCode\QRCodeFactory::text($data);
+        }
+        
+        /**
+         * Returns a QR_Url object
+         *
+         * @param string $url
+         * @return \QR_Code\Types\QR_Url 
+         * @throws \LaravelQRCode\Exceptions\EmptyTextException
+         * @throws \LaravelQRCode\Exceptions\MalformedUrlException
+         * @static 
+         */ 
+        public static function url($url)
+        {
+            return \LaravelQRCode\QRCodeFactory::url($url);
+        }
+        
+        /**
+         * Returns a QR_VCard object
+         *
+         * @param string $firstName
+         * @param string $lastName
+         * @param string $title Miss, Mrs., Mr., Doctor, etc
+         * @param string $email
+         * @param array $addresses
+         * @param array $phones
+         * @return \QR_Code\Types\QR_VCard 
+         * @throws \QR_Code\Exceptions\InvalidVCardAddressEntryException
+         * @throws \QR_Code\Exceptions\InvalidVCardPhoneEntryException
+         * @static 
+         */ 
+        public static function vCard($firstName, $lastName, $title, $email, $addresses, $phones)
+        {
+            return \LaravelQRCode\QRCodeFactory::vCard($firstName, $lastName, $title, $email, $addresses, $phones);
+        }
+        
+        /**
+         * Returns a QR_WiFi object
+         *
+         * @param string $authType
+         * @param string $ssId
+         * @param string $password
+         * @param bool $ssdIDisHidden
+         * @return \QR_Code\Types\QR_WiFi 
+         * @static 
+         */ 
+        public static function wifi($authType, $ssId, $password, $ssdIDisHidden)
+        {
+            return \LaravelQRCode\QRCodeFactory::wifi($authType, $ssId, $password, $ssdIDisHidden);
+        }
+         
+    }
+ 
+}
+
 namespace Yajra\DataTables\Facades { 
 
     class DataTables {
@@ -16895,6 +17037,8 @@ namespace  {
     class JWTAuth extends \Tymon\JWTAuth\Facades\JWTAuth {}
 
     class JWTFactory extends \Tymon\JWTAuth\Facades\JWTFactory {}
+
+    class QRCode extends \LaravelQRCode\Facades\QRCode {}
 
     class DataTables extends \Yajra\DataTables\Facades\DataTables {}
 

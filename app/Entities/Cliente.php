@@ -24,7 +24,7 @@ use App\Traits\StatusScope;
  * @property \Illuminate\Database\Eloquent\Collection $cartoes
  * @property \Illuminate\Database\Eloquent\Collection $produtos
  * @package App\Entities
- * @property-read \Illuminate\Database\Eloquent\Collection|ClientesProduto[] $clientesProduto
+ * @property-read \Illuminate\Database\Eloquent\Collection|ClientesProduto[] $clientesProdutos
  * @property-read \Illuminate\Database\Eloquent\Collection|Pedido[] $pedidos
  * @property-read string $status_label
  * @property-read \App\Entities\Arquivo $fotoPerfil
@@ -80,7 +80,7 @@ class Cliente extends Eloquent
 		return $this->hasMany(Cartao::class);
 	}
 
-    public function clientesProduto()
+    public function clientesProdutos()
     {
         return $this->hasMany(ClientesProduto::class);
     }

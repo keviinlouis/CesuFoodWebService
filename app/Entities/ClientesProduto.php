@@ -8,7 +8,9 @@
 namespace App\Entities;
 
 use App\Entities\Entity as Eloquent;
+use App\Traits\Files;
 use App\Traits\StatusScope;
+use QRCode;
 
 /**
  * Class ClientesProduto
@@ -18,6 +20,7 @@ use App\Traits\StatusScope;
  * @property int $cliente_id
  * @property int $produto_id
  * @property int $pedido_id
+ * @property string $hash
  * @property int $administrador_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -40,15 +43,17 @@ use App\Traits\StatusScope;
  * @property-read mixed $status_label
  * @property float $valor
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereValor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereHash($value)
  */
 class ClientesProduto extends Eloquent
 {
-    use StatusScope;
+    use StatusScope, Files;
 
     const AGUARDANDO_FECHAMENTO = 0;
     const RESERVADO = 1;
     const AGUARDANDO_RETIRADA = 2;
     const FINALIZADO = 3;
+    const QR_CODE = 'qr_code';
 
     public static $snakeAttributes = false;
 
@@ -67,7 +72,8 @@ class ClientesProduto extends Eloquent
 		'cliente_id',
 		'produto_id',
 		'pedido_id',
-		'administrador_id'
+		'administrador_id',
+        'hash'
 	];
 
 	public function administrador()
@@ -90,9 +96,19 @@ class ClientesProduto extends Eloquent
 		return $this->belongsTo(Produto::class);
 	}
 
+    /**
+     * @throws \LaravelQRCode\Exceptions\EmptyTextException
+     * @throws \LaravelQRCode\Exceptions\MalformedUrlException
+     */
     public function gerarQrCode()
     {
-        //TODO Gerar QRCODE
+        \Storage::exists($this->getPublicPathFiles())?:\Storage::makeDirectory($this->getPublicPathFiles());
+
+        QRCode::url('http://192.168.100.233/vender/'.$this->hash)
+            ->setSize(8)
+            ->setMargin(2)
+            ->setOutfile($this->getFullPublicPathFiles().'\qr_code.png')
+            ->png();
     }
 
     public function getStatusLabelAttribute()

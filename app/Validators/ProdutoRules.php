@@ -12,6 +12,7 @@
 
 namespace App\Validators;
 
+use App\Entities\ClientesProduto;
 use App\Entities\Produto;
 use App\Rules\RuleFileExistsOnTmp;
 use Illuminate\Validation\Rule;
@@ -56,6 +57,13 @@ class ProdutoRules
             'fotos_removidas' => 'array',
             'fotos_adicionadas' => 'array',
             'fotos_adicionadas.*' => ['required', new RuleFileExistsOnTmp()],
+        ];
+    }
+
+    public static function vender()
+    {
+        return [
+            'hash'  => ['required','string', Rule::exists('clientes_produtos', 'hash')->where('status', ClientesProduto::AGUARDANDO_RETIRADA)]
         ];
     }
 }

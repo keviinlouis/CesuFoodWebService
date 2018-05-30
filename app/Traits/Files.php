@@ -23,4 +23,14 @@ trait Files
     {
         !\Storage::exists($this->getPathFiles())?:\Storage::deleteDirectory($this->getPathFiles());
     }
+
+    public function getFullPublicPathFiles()
+    {
+        return storage_path('app/'.$this->getPublicPathFiles());
+    }
+
+    public function getFullPathFiles()
+    {
+        return storage_path('app/'.$this->getPathFiles());
+    }
 }

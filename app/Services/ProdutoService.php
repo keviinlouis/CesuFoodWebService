@@ -12,6 +12,7 @@
 
 namespace App\Services;
 
+use App\Entities\ClientesProduto;
 use App\Entities\Produto;
 use App\Validators\ProdutoRules;
 use Illuminate\Database\Eloquent\Builder;
@@ -170,5 +171,16 @@ class ProdutoService extends Service
         $model->delete();
 
         return $model;
+    }
+
+    public function vender(Collection $data): ClientesProduto
+    {
+        $this->validateWithArray($data, ProdutoRules::vender());
+
+        $clienteProduto = ClientesProduto::whereHash($data->get('hash'))->first();
+
+        $clienteProduto->update(['status' => ClientesProduto::FINALIZADO, 'administrador_id' => auth()->id()]);
+
+        return $clienteProduto;
     }
 }

@@ -13,6 +13,7 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Entities\Produto;
+use App\Http\Resources\ClientesProdutoResource;
 use App\Http\Resources\ProdutoResource;
 use App\Services\ProdutoService;
 use App\Http\Requests\Request;
@@ -61,6 +62,18 @@ class ProdutoController extends Controller
         $model = $this->produtoService->show($id);
 
         return new ProdutoResource($model);
+    }
+
+    public function meusProdutos()
+    {
+        return new ClientesProdutoResource(auth()->user()->clientesProdutos);
+    }
+
+    public function meuProduto($id)
+    {
+        $clienteProduto = auth()->user()->clientesProdutos()->where('id', $id)->firstOrFail();
+
+        return new ClientesProdutoResource($clienteProduto);
     }
 
 

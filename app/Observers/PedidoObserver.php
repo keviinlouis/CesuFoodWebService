@@ -26,6 +26,9 @@ class PedidoObserver extends Observer
                     break;
                 case Pedido::FINALIZADO:
                     $this->notificarClientePagamentoAutorizado($pedido);
+                    $pedido->clientesProdutos->each(function (ClientesProduto $clientesProduto) {
+                        $clientesProduto->update(['status' => ClientesProduto::AGUARDANDO_RETIRADA]);
+                    });
                     break;
                 case Pedido::CANCELADO:
                     $this->notificarClientePagamentoNaoAutorizado($pedido);
