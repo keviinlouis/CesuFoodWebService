@@ -94,4 +94,21 @@ class ClientesProduto extends Eloquent
     {
         //TODO Gerar QRCODE
     }
+
+    public function getStatusLabelAttribute()
+    {
+        switch($this->status){
+            case self::AGUARDANDO_FECHAMENTO:
+                return 'Aguardando Fechamento';
+            case self::RESERVADO:
+                return 'Reservado';
+            case self::AGUARDANDO_RETIRADA:
+                return 'Aguardando Retirada';
+            case self::FINALIZADO:
+                return 'Finalizado';
+            default:
+                return '';
+
+        }
+    }
 }
