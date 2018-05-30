@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Utils;
 
 
+use App\Entities\Pedido;
 use App\Http\Requests\Request;
 use Log;
 
@@ -29,7 +30,7 @@ class MoipController
 
         Log::channel('moip')->info('Evento Moip: '.$evento.' Tipo: '.$tipo);
 
-        // TODO Transformar evento moip para evento do sistema pela Trait Moip
+        $evento = Pedido::moipStatusToVendaStatus($evento);
 
         Log::channel('moip')->info('Evento Sistema: '.$evento);
 
@@ -40,7 +41,14 @@ class MoipController
 
     public function updatePagamento($id, $evento)
     {
-        // TODO Implementar update webhook pagamento moip
+        $pedido = Pedido::wherePagamentoId($id)->first();
+
+        if(!$pedido){
+            Log::channel('moip')->error('Pagamento ID '.$id.' não encontrado');
+            return;
+        }
+
+        $pedido->update(['status' => $evento]);
     }
 
 }

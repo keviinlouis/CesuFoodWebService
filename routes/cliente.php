@@ -24,4 +24,7 @@ Route::group(['middleware' => 'jwt:cliente'], function(){
     Route::post('pedido/finalizar', 'PedidoController@finalizar');
     Route::post('pedido/adicionar/{id}', 'PedidoController@adicionarProduto');
     Route::delete('pedido/remover/{id}', 'PedidoController@removerProduto');
+    Route::put('pedido/{id}', 'PedidoController@update');
+
+    Route::apiResource('cartao', 'CartaoController');
 });

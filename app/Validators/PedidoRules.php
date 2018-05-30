@@ -44,4 +44,11 @@ class PedidoRules
             //TODO Implementar update
         ];
     }
+
+    public static function finalizarPedido()
+    {
+        return [
+            'cartao_id' => 'required|integer|exists:cartoes,id'
+        ];
+    }
 }

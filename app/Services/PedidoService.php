@@ -17,10 +17,11 @@ use App\Entities\Pedido;
 use App\Entities\Produto;
 use App\Exceptions\ExceptionWithData;
 use App\Validators\PedidoRules;
-use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class PedidoService
@@ -56,12 +57,12 @@ class PedidoService extends Service
 
         $query = Pedido::with($this->relations);
 
-        if($clienteId = $filters->get('cliente_id')){
-            $query->whereIn('cliente_id', (array) $clienteId);
+        if ($clienteId = $filters->get('cliente_id')) {
+            $query->whereIn('cliente_id', (array)$clienteId);
         }
 
-        if(($status = $filters->get('status', null)) !== null){
-            $query->whereIn('status', (array) $status);
+        if (($status = $filters->get('status', null)) !== null) {
+            $query->whereIn('status', (array)$status);
         }
 
         $order = $filters->get('desc', false) ? 'desc' : 'asc';
@@ -80,11 +81,16 @@ class PedidoService extends Service
      * @param int|Pedido $model
      * @return Pedido
      * @throws ModelNotFoundException
+     * @throws Exception
      */
     public function show($model): Pedido
     {
         if (!$model instanceof Pedido) {
             $model = Pedido::whereId($model)->firstOrFail();
+        }
+
+        if(auth()->user()->isCliente() && $model->cliente_id != auth()->id()){
+            throw new Exception('Este pedido não pertence a este cliente', Response::HTTP_UNAUTHORIZED);
         }
 
         return $model->load($this->relations);
@@ -151,7 +157,7 @@ class PedidoService extends Service
      */
     public function adicionarProduto(Pedido $pedido, $produtoId, $clienteId)
     {
-        if(!$pedido->isAberto()){
+        if (!$pedido->isAberto()) {
             throw new ExceptionWithData('Pedido precisa estar no status aberto para adicionar produtos', Response::HTTP_BAD_REQUEST);
         }
 
@@ -177,8 +183,32 @@ class PedidoService extends Service
         return $this->show($pedido);
     }
 
-    public function finalizarPedido(Pedido $pedido)
+    /**
+     * @param Pedido $pedido
+     * @param Collection $data
+     * @return Pedido
+     * @throws Exception
+     */
+    public function finalizarPedido(Pedido $pedido, Collection $data)
     {
-        // TODO Finalizar Pedido
+        $this->validateWithArray($data, PedidoRules::finalizarPedido());
+
+        if (!$pedido->clientesProdutos->count()) {
+            throw new Exception('Pedido deve ter pelo menos um produto antes de ser finalizado', Response::HTTP_BAD_REQUEST);
+        }
+        if (auth()->user()->isCliente()) {
+            auth()->user()->cartoes()->where('id', $data->get('cartao_id'))->firstOrFail();
+        }
+        \DB::beginTransaction();
+
+        $pedido->update([
+            'status' => Pedido::AGUARDANDO_PAGAMENTO,
+            'pagamento_id' => Str::uuid(),
+            'cartao_id' => $data->get('cartao_id')
+        ]);
+
+        \DB::commit();
+
+        return $pedido;
     }
 }

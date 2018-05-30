@@ -19,19 +19,19 @@ trait MoipTrait
     {
         switch ($status) {
             case 'CREATED':
-                return self::CRIADO;
+                return self::AGUARDANDO_PAGAMENTO;
                 break;
             case 'WAITING':
-                return self::ANALISANDO;
+                return self::AGUARDANDO_PAGAMENTO;
                 break;
             case 'IN_ANALYSIS':
-                return self::ANALISANDO;
+                return self::AGUARDANDO_PAGAMENTO;
                 break;
             case 'PRE_AUTHORIZED':
-                return self::PRE_AUTORIZADO;
+                return self::FINALIZADO;
                 break;
             case 'AUTHORIZED':
-                return self::AUTORIZADO;
+                return self::FINALIZADO;
                 break;
             case 'CANCELLED':
                 return self::CANCELADO;
@@ -40,7 +40,7 @@ trait MoipTrait
                 return self::REEMBOLSADO;
                 break;
             case 'SETTLED':
-                return self::CONCLUIDO;
+                return self::FINALIZADO;
                 break;
             case 'REVERSED':
                 return self::ESTORNO;
@@ -57,7 +57,7 @@ trait MoipTrait
     static public function isPago($evento)
     {
         return in_array($evento, [
-                self::PRE_AUTORIZADO, self::AUTORIZADO, self::CONCLUIDO
+                self::FINALIZADO
             ]) !== false;
     }
 

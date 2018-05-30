@@ -52,6 +52,7 @@ class PedidoController extends Controller
      *
      * @param  int $id
      * @return PedidoResource
+     * @throws \Exception
      */
     public function show(int $id): PedidoResource
     {
@@ -88,8 +89,28 @@ class PedidoController extends Controller
         return new PedidoResource($model);
     }
 
-    public function finalizar()
+    /**
+     * @param Request $request
+     * @return PedidoResource
+     * @throws \Exception
+     */
+    public function finalizar(Request $request)
     {
-        $model = $this->pedidoService->finalizarPedido(auth()->user()->pedido_aberto);
+        $model = $this->pedidoService->finalizarPedido(auth()->user()->pedido_aberto, $request->toCollection());
+
+        return new PedidoResource($model);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return PedidoResource
+     * @throws \Exception
+     */
+    public function update(Request $request, $id)
+    {
+        $model = $this->pedidoService->update($request->toCollection(), $id);
+
+        return new PedidoResource($model);
     }
 }

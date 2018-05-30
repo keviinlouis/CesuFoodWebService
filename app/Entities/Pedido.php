@@ -8,6 +8,7 @@
 namespace App\Entities;
 
 use App\Entities\Entity as Eloquent;
+use App\Moip\Traits\MoipTrait;
 use App\Traits\StatusScope;
 
 /**
@@ -40,11 +41,15 @@ use App\Traits\StatusScope;
  */
 class Pedido extends Eloquent
 {
-    use StatusScope;
+    use StatusScope, MoipTrait;
 
     const ABERTO = 0;
-    const FECHADO = 1;
-    const EXPIRADO = 2;
+    const AGUARDANDO_PAGAMENTO = 1;
+    const FINALIZADO = 2;
+    const EXPIRADO = 3;
+    const CANCELADO = 5;
+    const REEMBOLSADO = 6;
+    const ESTORNO = 8;
 
     public static $snakeAttributes = false;
 
@@ -81,5 +86,27 @@ class Pedido extends Eloquent
     public function isAberto()
     {
         return $this->isStatus(self::ABERTO);
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        switch($this->status){
+            case self::ABERTO:
+                return 'Aberto';
+            case self::AGUARDANDO_PAGAMENTO:
+                return 'Aguardando Pagamento';
+            case self::FINALIZADO:
+                return 'Finalizado';
+            case self::EXPIRADO:
+                return 'Expirado';
+            case self::CANCELADO:
+                return 'Cancelado';
+            case self::REEMBOLSADO:
+                return 'Reembolsado';
+            case self::ESTORNO:
+                return 'Estorno';
+            default:
+                return '';
+        }
     }
 }

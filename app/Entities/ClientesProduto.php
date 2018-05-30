@@ -42,7 +42,10 @@ use App\Traits\StatusScope;
 class ClientesProduto extends Eloquent
 {
     use StatusScope;
+
     const AGUARDANDO_FECHAMENTO = 0;
+    const RESERVADO = 1;
+
     public static $snakeAttributes = false;
 
 	protected $casts = [

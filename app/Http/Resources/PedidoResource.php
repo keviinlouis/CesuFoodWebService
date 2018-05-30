@@ -13,7 +13,6 @@
 namespace App\Http\Resources;
 
 
-use App\Entities\ClientesProduto;
 use App\Entities\Pedido;
 
 class PedidoResource extends Resource
@@ -27,8 +26,10 @@ class PedidoResource extends Resource
         $data = [
             'id' => $resource->getKey(),
             'status' => $resource->status,
+            'status_label' => $resource->status_label,
             'cliente' => new ClienteResource($resource->cliente),
-            'produtos' => new ClientesProdutoResource($resource->clientesProdutos)
+            'produtos' => new ClientesProdutoResource($resource->clientesProdutos),
+            'cartao' => new CartaoResource($resource->cartao)
         ];
 
         return $data;
