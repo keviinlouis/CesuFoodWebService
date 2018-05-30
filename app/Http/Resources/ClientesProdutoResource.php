@@ -18,22 +18,6 @@ use App\Entities\ClientesProduto;
 class ClientesProdutoResource extends Resource
 {
     /**
-     * @var bool
-     */
-    private $withQrCode;
-
-    /**
-     * ClientesProdutoResource constructor.
-     * @param $resource
-     * @param bool $withQrCode
-     */
-    public function __construct($resource, $withQrCode = false)
-    {
-        parent::__construct($resource);
-        $this->withQrCode = $withQrCode;
-    }
-
-    /**
      * @param ClientesProduto $resource
      * @return array
      */
@@ -45,12 +29,9 @@ class ClientesProdutoResource extends Resource
             'status' => $resource->status,
             'status_label' => $resource->status_label,
             'produto' => new ProdutoResource($resource->produto),
-            'admin' => new AdministradorResource($resource->administrador)
+            'admin' => new AdministradorResource($resource->administrador),
+            'url_qr_code' => $resource->url_qr_code
         ];
-
-        if($this->withQrCode){
-            $data['qr_code'] = $resource->gerarQrCode();
-        }
 
         return $data;
     }

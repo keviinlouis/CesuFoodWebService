@@ -44,6 +44,8 @@ use QRCode;
  * @property float $valor
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereValor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereHash($value)
+ * @property-read mixed $url_qr_code
+ * @property-read \App\Entities\Arquivo $qrCode
  */
 class ClientesProduto extends Eloquent
 {
@@ -53,7 +55,7 @@ class ClientesProduto extends Eloquent
     const RESERVADO = 1;
     const AGUARDANDO_RETIRADA = 2;
     const FINALIZADO = 3;
-    const QR_CODE = 'qr_code';
+    const QR_CODE = 'QR_CODE';
 
     public static $snakeAttributes = false;
 
@@ -96,20 +98,50 @@ class ClientesProduto extends Eloquent
 		return $this->belongsTo(Produto::class);
 	}
 
+    public function qrCode()
+    {
+        return $this->morphOne(Arquivo::class, 'entidade');
+	}
+
     /**
      * @throws \LaravelQRCode\Exceptions\EmptyTextException
      * @throws \LaravelQRCode\Exceptions\MalformedUrlException
      */
     public function gerarQrCode()
     {
-        \Storage::exists($this->getPublicPathFiles())?:\Storage::makeDirectory($this->getPublicPathFiles());
+        $nome = uniqid().'.png';
 
         QRCode::url('http://192.168.100.233/vender/'.$this->hash)
             ->setSize(8)
             ->setMargin(2)
-            ->setOutfile($this->getFullPublicPathFiles().'\qr_code.png')
+            ->setOutfile('storage/app/public/temp/'.$nome)
             ->png();
+
+        return $nome;
     }
+
+    /**
+     * @throws \LaravelQRCode\Exceptions\EmptyTextException
+     * @throws \LaravelQRCode\Exceptions\MalformedUrlException
+     */
+    public function getUrlQrCodeAttribute()
+    {
+        if(!$this->isAguardandoRetirada()){
+            return '';
+        }
+        $qrCode = $this->qrCode;
+
+        if(!$qrCode){
+            $qrCode = $this->qrCode()->create([
+                'nome' => $this->gerarQrCode(),
+                'path' => $this->getPublicPathFiles(),
+                'tipo' => self::QR_CODE
+            ]);
+        }
+
+        return $qrCode->url;
+    }
+
 
     public function getStatusLabelAttribute()
     {
@@ -126,5 +158,10 @@ class ClientesProduto extends Eloquent
                 return '';
 
         }
+    }
+
+    public function isAguardandoRetirada()
+    {
+        return $this->isStatus(self::AGUARDANDO_RETIRADA);
     }
 }
