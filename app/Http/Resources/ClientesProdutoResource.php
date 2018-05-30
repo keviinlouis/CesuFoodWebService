@@ -25,7 +25,9 @@ class ClientesProdutoResource extends Resource
     {
         $data = [
             'id' => $resource->getKey(),
-            'valor' => 0,
+            'valor' => $resource->valor,
+            'status' => $resource->status,
+            'status_label' => $resource->status_label,
             'produto' => new ProdutoResource($resource->produto),
             'admin' => new AdministradorResource($resource->administrador)
         ];

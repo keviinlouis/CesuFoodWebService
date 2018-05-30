@@ -168,7 +168,8 @@ class PedidoService extends Service
         $pedido->clientesProdutos()->create([
             'cliente_id' => $clienteId,
             'produto_id' => $produto->getKey(),
-            'status' => ClientesProduto::AGUARDANDO_FECHAMENTO
+            'status' => ClientesProduto::AGUARDANDO_FECHAMENTO,
+            'valor' => $produto->valor
         ]);
 
         \DB::commit();
@@ -176,6 +177,12 @@ class PedidoService extends Service
         return $this->show($pedido);
     }
 
+    /**
+     * @param Pedido $pedido
+     * @param $produtoId
+     * @return Pedido
+     * @throws Exception
+     */
     public function removerProduto(Pedido $pedido, $produtoId)
     {
         $pedido->clientesProdutos()->where('produto_id', $produtoId)->first()->delete();

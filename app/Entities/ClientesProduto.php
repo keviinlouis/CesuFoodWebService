@@ -38,6 +38,8 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read mixed $status_label
+ * @property float $valor
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereValor($value)
  */
 class ClientesProduto extends Eloquent
 {
@@ -45,11 +47,14 @@ class ClientesProduto extends Eloquent
 
     const AGUARDANDO_FECHAMENTO = 0;
     const RESERVADO = 1;
+    const AGUARDANDO_RETIRADA = 2;
+    const FINALIZADO = 3;
 
     public static $snakeAttributes = false;
 
 	protected $casts = [
 		'status' => 'int',
+        'valor' => 'float',
 		'cliente_id' => 'int',
 		'produto_id' => 'int',
 		'pedido_id' => 'int',
@@ -58,6 +63,7 @@ class ClientesProduto extends Eloquent
 
 	protected $fillable = [
 		'status',
+        'valor',
 		'cliente_id',
 		'produto_id',
 		'pedido_id',
@@ -83,4 +89,9 @@ class ClientesProduto extends Eloquent
 	{
 		return $this->belongsTo(Produto::class);
 	}
+
+    public function gerarQrCode()
+    {
+        //TODO Gerar QRCODE
+    }
 }

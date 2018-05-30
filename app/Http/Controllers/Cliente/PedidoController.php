@@ -81,6 +81,7 @@ class PedidoController extends Controller
     /**
      * @param int $id
      * @return PedidoResource
+     * @throws \Exception
      */
     public function removerProduto(int $id)
     {
