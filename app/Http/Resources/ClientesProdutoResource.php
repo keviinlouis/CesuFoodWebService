@@ -26,12 +26,9 @@ class ClientesProdutoResource extends Resource
         $data = [
             'id' => $resource->getKey(),
             'valor' => 0,
-            'produto' => new ProdutoResource($resource->produto)
+            'produto' => new ProdutoResource($resource->produto),
+            'admin' => new AdministradorResource($resource->administrador)
         ];
-
-        if (auth()->user()->isAdmin()) {
-            $data['admin'] = new AdministradorResource($resource->administrador);
-        }
 
         return $data;
     }
