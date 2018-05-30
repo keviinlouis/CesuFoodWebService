@@ -15,4 +15,5 @@ Route::group(['middleware' => 'jwt:admin'], function(){
     Route::apiResource('categoria', 'CategoriaController');
 
     Route::post('produto-cliente/{id}/entregar', 'ProdutoController@entregar');
+    Route::get('produto-cliente/{id}', 'ProdutoController@verProdutoCliente');
 });

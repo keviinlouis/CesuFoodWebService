@@ -14,6 +14,7 @@ namespace App\Services;
 
 use App\Entities\ClientesProduto;
 use App\Entities\Produto;
+use App\Http\Resources\ClientesProdutoResource;
 use App\Validators\ProdutoRules;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -173,14 +174,17 @@ class ProdutoService extends Service
         return $model;
     }
 
-    public function vender(Collection $data): ClientesProduto
+    public function entregar($hash): ClientesProduto
     {
-        $this->validateWithArray($data, ProdutoRules::vender());
-
-        $clienteProduto = ClientesProduto::whereHash($data->get('hash'))->first();
+        $clienteProduto = $this->verProdutoPelaHash($hash);
 
         $clienteProduto->update(['status' => ClientesProduto::FINALIZADO, 'administrador_id' => auth()->id()]);
 
         return $clienteProduto;
+    }
+
+    public function verProdutoPelaHash($hash):ClientesProduto
+    {
+        return ClientesProduto::whereHash($hash)->firstOrFail();
     }
 }

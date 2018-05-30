@@ -108,7 +108,6 @@ class ArquivoObserver extends Observer
             unset($toPath[count($toPath)-1]);
         }
         $toPath = implode('/', $toPath);
-
         $path = $this->fileService->copyFileFromTmp(
             $arquivo->nome,
             $toPath

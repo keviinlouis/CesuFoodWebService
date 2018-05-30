@@ -13,6 +13,7 @@
 namespace App\Http\Controllers\Administrador;
 
 use App\Entities\ClientesProduto;
+use App\Http\Resources\ClientesProdutoResource;
 use App\Http\Resources\ProdutoResource;
 use App\Services\ProdutoService;
 use App\Http\Requests\Request;
@@ -105,10 +106,17 @@ class ProdutoController extends Controller
         return new ProdutoResource($model);
     }
 
-    public function vender(Request $request)
+    public function entregar($hash)
     {
-        $model = $this->produtoService->vender($request->toCollection());
+        $model = $this->produtoService->entregar($hash);
 
-        return new ClientesProduto($model);
+        return new ClientesProdutoResource($model);
+    }
+
+    public function verProdutoCliente($hash)
+    {
+        $model = $this->produtoService->verProdutoPelaHash($hash);
+
+        return new ClientesProdutoResource($model);
     }
 }

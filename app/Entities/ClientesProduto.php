@@ -114,7 +114,7 @@ class ClientesProduto extends Eloquent
         QRCode::url('http://192.168.100.233/vender/'.$this->hash)
             ->setSize(8)
             ->setMargin(2)
-            ->setOutfile('storage/app/public/temp/'.$nome)
+            ->setOutfile('storage/temp/'.$nome)
             ->png();
 
         return $nome;
@@ -130,7 +130,6 @@ class ClientesProduto extends Eloquent
             return '';
         }
         $qrCode = $this->qrCode;
-
         if(!$qrCode){
             $qrCode = $this->qrCode()->create([
                 'nome' => $this->gerarQrCode(),
