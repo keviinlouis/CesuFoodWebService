@@ -16,9 +16,10 @@ class CreatePedidosTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('status')->default(0);
-			$table->float('valor_total', 10);
-			$table->text('pagamento_id', 65535);
-			$table->integer('cartao_id')->unsigned()->index('fk_pedidos_cartoes1_idx');
+			$table->float('valor_total', 10)->default(0);
+			$table->text('pagamento_id', 65535)->nullable();
+			$table->integer('cartao_id')->unsigned()->nullable()->index('fk_pedidos_cartoes1_idx');
+			$table->integer('cliente_id')->unsigned()->index('fk_pedidos_clientes1_idx');
 			$table->timestamps();
 		});
 	}

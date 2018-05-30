@@ -13,6 +13,7 @@
 namespace App\Validators;
 
 use App\Entities\Cliente;
+use App\Rules\RuleFileExistsOnTmp;
 use Illuminate\Validation\Rule;
 
 
@@ -35,24 +36,30 @@ class ClienteRules
     }
 
     /**
-     * Regras para criação de Cliente
+     * Regras para criação de ClienteController
      * @return array
      */
     static public function store(): array
     {
         return [
-            //TODO Implementar store
+            'email' => 'required|unique:clientes|email',
+            'ra' => 'required|digits:8',
+            'senha' => 'required|min:6|string',
+            'foto_perfil' => ['string', new RuleFileExistsOnTmp()]
         ];
     }
 
     /**
-     * Regras para alteração de Cliente
+     * Regras para alteração de ClienteController
      * @return array
      */
     static public function update(): array
     {
         return [
-            //TODO Implementar update
+            'senha' => 'required_with:nova_senha|min:6|string',
+            'nova_senha' => 'required_with:senha|min:6|string',
+            'foto_perfil' => ['string', new RuleFileExistsOnTmp()]
+
         ];
     }
 }

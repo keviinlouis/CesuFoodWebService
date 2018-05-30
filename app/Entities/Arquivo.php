@@ -22,17 +22,17 @@ namespace App\Entities;
  * @property-read mixed $path_sem_nome
  * @property-read mixed $path_thumb
  * @property-read mixed $url_thumb
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereDescricao($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereEntidadeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereEntidadeType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereExtensao($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereNome($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo wherePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereTipo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Arquivo whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereDescricao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereEntidadeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereEntidadeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereExtensao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereNome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereTipo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Arquivo whereUrl($value)
  * @mixin \Eloquent
  */
 class Arquivo extends Entity

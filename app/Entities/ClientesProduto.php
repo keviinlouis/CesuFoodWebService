@@ -26,22 +26,24 @@ use App\Traits\StatusScope;
  * @property Pedido $pedido
  * @property Produto $produto
  * @package App\Entities
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto ativos()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto inativos()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereAdministradorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereClienteId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto wherePedidoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereProdutoId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\ClientesProduto whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto ativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto inativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereAdministradorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereClienteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto wherePedidoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereProdutoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientesProduto whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $status_label
  */
 class ClientesProduto extends Eloquent
 {
     use StatusScope;
-	public static $snakeAttributes = false;
+    const AGUARDANDO_FECHAMENTO = 0;
+    public static $snakeAttributes = false;
 
 	protected $casts = [
 		'status' => 'int',

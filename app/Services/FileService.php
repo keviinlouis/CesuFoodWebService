@@ -24,6 +24,8 @@ class FileService
     private $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     private $lastErrorMsg;
 
+    const THUMB_PREFIX = 'thumb_';
+
     /**
      * FileService constructor.
      * @param array $extensions
@@ -197,7 +199,21 @@ class FileService
      */
     public function removeFile($fromPath): bool
     {
+        !Storage::exists($this->getThumbFromFilePath($fromPath))?:Storage::delete($this->getThumbFromFilePath($fromPath));
         return !Storage::exists($fromPath) || Storage::delete($fromPath);
+    }
+
+    public function getThumbFromFilePath($path)
+    {
+        $path = explode('/', $path);
+
+        $thumb = self::THUMB_PREFIX.end($path);
+
+        $path[count($path)-1] = $thumb;
+
+        $pathThumb = implode('/', $path);
+
+        return $pathThumb;
     }
 
     /**

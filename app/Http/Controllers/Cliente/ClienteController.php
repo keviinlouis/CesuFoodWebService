@@ -17,7 +17,7 @@ use App\Services\ClienteService;
 use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
 
-class Cliente extends Controller
+class ClienteController extends Controller
 {
     private $clienteService;
 

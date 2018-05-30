@@ -88,7 +88,13 @@ class ProdutoService extends Service
     public function show($model): Produto
     {
         if (!$model instanceof Produto) {
-            $model = Produto::whereId($model)->firstOrFail();
+            $model = Produto::whereId($model);
+
+            if(auth()->user()->isCliente()){
+                $model->ativos();
+            }
+
+            $model = $model->firstOrFail();
         }
 
         return $model->load($this->relations);

@@ -29,7 +29,18 @@ class ClienteResource extends Resource
      */
     public function toResource($resource)
     {
-        $data = $resource->toArray();
+        $data = [
+            'id' => $resource->getKey(),
+            'email' => $resource->email,
+            'ra' => $resource->ra,
+            'foto_perfil' => $resource->url_foto_perfil_thumb,
+            'created_at' => $resource->created_at->toDateTimeString()
+        ];
+
+        if(auth()->check() && auth()->user()->isAdmin()){
+            $data['status'] = $resource->status;
+            $data['status_label'] = $resource->status_label;
+        }
 
         return $data;
     }

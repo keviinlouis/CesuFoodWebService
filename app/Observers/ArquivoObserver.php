@@ -9,6 +9,7 @@
 namespace App\Observers;
 
 use App\Entities\Arquivo;
+use App\Entities\Cliente;
 use App\Entities\Produto;
 use App\Services\FileService;
 
@@ -22,11 +23,13 @@ class ArquivoObserver extends Observer
     }
 
     protected $tiposRemoviveisAoRemoverDoBanco = [
-        Produto::FOTO
+        Produto::FOTO,
+        Cliente::FOTO_PERFIL
     ];
 
     protected $tiposComThumb = [
-        Produto::FOTO
+        Produto::FOTO,
+        Cliente::FOTO_PERFIL
     ];
 
     /**
@@ -64,9 +67,15 @@ class ArquivoObserver extends Observer
 
     public function updated(Arquivo $arquivo)
     {
-        $this->makeThumb($arquivo);
+        if (in_array($arquivo->tipo, $this->tiposComThumb) !== false) {
+            $this->makeThumb($arquivo);
+        }
+
         $this->fileService->removeFromTmp(
             $arquivo->nome
+        );
+        $this->fileService->removeFile(
+            $arquivo->getOriginal('path')
         );
     }
 

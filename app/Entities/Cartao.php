@@ -26,20 +26,20 @@ use App\Entities\Entity as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $pedidos
  * @package App\Entities
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Cartao onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Cartao onlyTrashed()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereBandeira($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereClienteId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereDataExpiracao($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereHash($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereNomeCompleto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereUltimosDigitos($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Cartao whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Cartao withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Cartao withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereBandeira($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereClienteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereDataExpiracao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereNomeCompleto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereUltimosDigitos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cartao whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Cartao withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Cartao withoutTrashed()
  * @mixin \Eloquent
  */
 class Cartao extends Eloquent

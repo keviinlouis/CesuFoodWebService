@@ -24,23 +24,24 @@ use App\Traits\StatusScope;
  * @property string $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection $clientesProdutos
  * @package App\Entities
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador ativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador ativos()
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador inativos()
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador inativos()
+ * @method static \Illuminate\Database\Query\Builder|Administrador onlyTrashed()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Administrador withoutTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Administrador withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Administrador withoutTrashed()
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereCargo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereNome($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereSenha($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Administrador whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereCargo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereNome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereSenha($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Administrador whereUpdatedAt($value)
+ * @property-read mixed $status_label
  */
 class Administrador extends Eloquent
 {

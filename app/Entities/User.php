@@ -33,4 +33,14 @@ abstract class User extends Authenticatable implements JWTSubject
     }
 
     abstract function getClassAuth():string;
+
+    public function isAdmin()
+    {
+        return $this instanceof Administrador;
+    }
+
+    public function isCliente()
+    {
+        return $this instanceof Cliente;
+    }
 }

@@ -37,4 +37,16 @@ trait StatusScope
     {
         return $this->isStatus(self::INATIVO);
     }
+
+    public function getStatusLabelAttribute()
+    {
+        switch ($this->status){
+            case self::ATIVO:
+                return 'Ativo';
+            case self::INATIVO:
+                return 'Inativo';
+            default:
+                return '';
+        }
+    }
 }

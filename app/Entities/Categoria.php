@@ -19,15 +19,16 @@ use App\Traits\StatusScope;
  * @property int $status
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\Produto[] $produtos
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria ativos()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria inativos()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria whereNome($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Categoria whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|Produto[] $produtos
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria ativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria inativos()
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereNome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $status_label
  */
 class Categoria extends Eloquent
 {

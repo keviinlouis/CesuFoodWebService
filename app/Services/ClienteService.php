@@ -15,10 +15,10 @@ namespace App\Services;
 use App\Entities\Cliente;
 use App\Exceptions\ExceptionWithData;
 use App\Validators\ClienteRules;
-use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 /**
  * Class ClienteService
@@ -41,7 +41,7 @@ class ClienteService extends Service
 
 
     /**
-     * Listagem de Cliente
+     * Listagem de ClienteController
      * @param Collection $filters
      * @return Cliente[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator
      * @throws Exception
@@ -66,7 +66,7 @@ class ClienteService extends Service
     }
 
     /**
-     * Visualizar Cliente pelo id
+     * Visualizar ClienteController pelo id
      * @param int|Cliente $model
      * @return Cliente
      * @throws ModelNotFoundException
@@ -81,7 +81,7 @@ class ClienteService extends Service
     }
 
     /**
-     * Criar Cliente
+     * Criar ClienteController
      * @param Collection $data
      * @return Cliente
      * @throws Exception
@@ -89,20 +89,31 @@ class ClienteService extends Service
     public function store(Collection $data): Cliente
     {
         $this->validateWithArray($data->toArray(), ClienteRules::store());
+        \DB::beginTransaction();
 
         $model = Cliente::create($data->all());
 
+        if ($fotosPerfil = $data->get('foto_perfil')) {
+            $model->fotoPerfil()->create([
+                'nome' => $fotosPerfil,
+                'path' => $model->getPublicPathFiles(),
+                'tipo' => Cliente::FOTO_PERFIL
+            ]);
+        }
+
+        \DB::commit();
         return $this->show($model);
     }
 
 
     /**
-     * Atualizar Cliente
+     * Atualizar ClienteController
      * @param Collection $data
      * @param int|Cliente $id
      * @throws ModelNotFoundException
      * @throws Exception
      * @return Cliente
+     * @throws \Throwable
      */
     public function update(Collection $data, $id): Cliente
     {
@@ -110,13 +121,41 @@ class ClienteService extends Service
 
         $model = $this->show($id);
 
+        if($novaSenha = $data->get('nova_senha')){
+            throw_if(
+                !$model->checkSenha($data->get('senha')),
+                ExceptionWithData::class,
+                'Dados Inválidos',
+                Response::HTTP_BAD_REQUEST,
+                ['senha' => ['Senha incorreta']]
+            );
+
+            $data['senha'] = $novaSenha;
+        }
+
+        \DB::beginTransaction();
+
         $model->update($data->all());
 
+        if ($fotosPerfil = $data->get('foto_perfil')) {
+            $model->fotoPerfil()->updateOrCreate(
+                [
+                    'tipo' => Cliente::FOTO_PERFIL
+                ],
+                [
+                    'nome' => $fotosPerfil,
+                    'path' => $model->getPublicPathFiles()
+
+                ]
+            );
+        }
+
+        \DB::commit();
         return $this->show($model);
     }
 
     /**
-     * Deletar Cliente
+     * Deletar ClienteController
      * @param int|Cliente $id
      * @return Cliente
      * @throws ModelNotFoundException
@@ -140,11 +179,15 @@ class ClienteService extends Service
     public function login(Collection $data): Cliente
     {
         $this->validateWithArray($data, ClienteRules::login());
-        $model = Cliente::whereEmail($data->get('email'))->first();
 
-        if(!$model->checkSenha($data->get('senha'))){
+        $model = Cliente::whereEmail($data->get('email'))->withTrashed()->firstOrFail();
+
+        if (!$model->checkSenha($data->get('senha'))) {
             throw new ExceptionWithData('Dados Inválidos', Response::HTTP_BAD_REQUEST, ['senha' => ['senha inválida']]);
         }
+
+
+        !$model->trashed()?:$model->restore();
 
         return $model;
     }
