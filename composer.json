@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "ext-gd": "*",
+        "gd": "*",
         "ext-mbstring": "*",
         "ext-mcrypt": "*",
         "php": ">=7.1.3",
