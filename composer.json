@@ -5,6 +5,8 @@
     "license": "MIT",
     "type": "project",
     "require": {
+        "ext-gd": "*",
+        "ext-mcrypt": "*",
         "php": ">=7.1.3",
         "barryvdh/laravel-cors": "^0.11.0",
         "brozot/laravel-fcm": "^1.2",
