@@ -16,5 +16,4 @@ class TestesSeed extends Seeder
 
         factory(\App\Entities\Cliente::class)->create(['email' => 'kevin@mail.com']);
     }
-
 }
