@@ -111,7 +111,7 @@ class ClientesProduto extends Eloquent
     {
         $nome = uniqid().'.png';
 
-        QRCode::url('http://192.168.100.78/vender/'.$this->hash)
+        QRCode::url('https://cesufood-admin.herokuapp.com/vender/'.$this->hash)
             ->setSize(8)
             ->setMargin(2)
             ->setOutfile('storage/temp/'.$nome)
