@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.6.23 on 2018-05-30 13:16:57.
+ * Generated for Laravel 5.6.23 on 2018-05-31 00:31:43.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -7535,6 +7535,18 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * 
+         *
+         * @internal 
+         * @static 
+         */ 
+        public static function setSessionFactory($factory)
+        {
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \App\Http\Requests\Request::setSessionFactory($factory);
+        }
+        
+        /**
          * Returns the client IP addresses.
          * 
          * In the returned array the most trusted IP address is first, and the
@@ -12455,6 +12467,7 @@ namespace Intervention\Image\Facades {
          * Overrides configuration settings
          *
          * @param array $config
+         * @return self 
          * @static 
          */ 
         public static function configure($config = array())
@@ -12477,8 +12490,8 @@ namespace Intervention\Image\Facades {
         /**
          * Creates an empty image canvas
          *
-         * @param integer $width
-         * @param integer $height
+         * @param int $width
+         * @param int $height
          * @param mixed $background
          * @return \Intervention\Image\Image 
          * @static 
@@ -12493,7 +12506,7 @@ namespace Intervention\Image\Facades {
          * (requires additional package intervention/imagecache)
          *
          * @param \Closure $callback
-         * @param integer $lifetime
+         * @param int $lifetime
          * @param boolean $returnObj
          * @return \Image 
          * @static 
@@ -13211,6 +13224,17 @@ namespace Collective\Html {
         public static function getValueAttribute($name, $value = null)
         {
             return \Collective\Html\FormBuilder::getValueAttribute($name, $value);
+        }
+        
+        /**
+         * Take Request in fill process
+         *
+         * @param bool $consider
+         * @static 
+         */ 
+        public static function considerRequest($consider = true)
+        {
+            return \Collective\Html\FormBuilder::considerRequest($consider);
         }
         
         /**

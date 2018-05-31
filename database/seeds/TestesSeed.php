@@ -21,5 +21,7 @@ class TestesSeed extends Seeder
     public function exampleSeed()
     {
         factory(\App\Entities\Produto::class, 500)->create();
+
+        factory(\App\Entities\Cliente::class)->create(['email' => 'kevin@mail.com']);
     }
 }
