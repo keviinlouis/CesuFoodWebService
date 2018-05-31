@@ -68,7 +68,7 @@
             "@php -r \"file_exists('storage/logs/exceptions.log') || fopen('storage/logs/exceptions.log', 'x+');\"",
             "@php -r \"file_exists('storage/logs/recuperacao_senha.log') || fopen('storage/logs/recuperacao_senha.log', 'x+');\"",
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover",
+            "@php artisan package:discover"
         ]
     },
     "config": {
