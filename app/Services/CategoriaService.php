@@ -127,14 +127,13 @@ class CategoriaService extends Service
      * @return Categoria
      * @throws ModelNotFoundException
      * @throws Exception
+     * @throws \Throwable
      */
     public function delete($id): Categoria
     {
         $model = $this->show($id);
 
-        if($model->produtos->isNotEmpty()){
-            throw new Exception('Você não pode deletar uma categoria com produtos', Response::HTTP_BAD_REQUEST);
-        }
+        throw_if($model->produtos->isNotEmpty(), Exception::class, 'Você não pode deletar uma categoria com produtos', Response::HTTP_BAD_REQUEST);
 
         $model->delete();
 
