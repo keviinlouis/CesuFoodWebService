@@ -14,6 +14,7 @@ namespace App\Services;
 
 use App\Entities\Categoria;
 use App\Validators\CategoriaRules;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,7 +35,7 @@ class CategoriaService extends Service
     public function __construct()
     {
         $this->relations = [];
-        $this->relationsCount = [];
+        $this->relationsCount = ['produtos'];
     }
 
 
@@ -51,6 +52,13 @@ class CategoriaService extends Service
         }
 
         $query = Categoria::with($this->relations);
+
+        if($filters->has('count_produtos')){
+            $query->withCount('produtos');
+        }
+        if($filters->has('count_produtos_vendidos')){
+            $query->withCount('clientesProdutos');
+        }
 
         $order = $filters->get('order', 'asc');
 
@@ -123,6 +131,10 @@ class CategoriaService extends Service
     public function delete($id): Categoria
     {
         $model = $this->show($id);
+
+        if($model->produtos->isNotEmpty()){
+            throw new Exception('Você não pode deletar uma categoria com produtos', Response::HTTP_BAD_REQUEST);
+        }
 
         $model->delete();
 

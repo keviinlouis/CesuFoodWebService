@@ -25,7 +25,9 @@ class CategoriaResource extends Resource
     {
         $data =[
             'id' => $resource->getKey(),
-            'nome' => $resource->nome
+            'nome' => $resource->nome,
+            'produtos_count' => $resource->produtos_count?:0,
+            'clientes_produtos_count' => $resource->clientes_produtos_count?:0
         ];
 
         return $data;

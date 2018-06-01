@@ -30,7 +30,8 @@ class ClientesProdutoResource extends Resource
             'status_label' => $resource->status_label,
             'produto' => new ProdutoResource($resource->produto),
             'admin' => new AdministradorResource($resource->administrador),
-            'url_qr_code' => $resource->url_qr_code
+            'url_qr_code' => $resource->url_qr_code,
+            'cliente' => new ClienteResource($resource->cliente)
         ];
 
         return $data;

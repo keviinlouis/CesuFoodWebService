@@ -48,4 +48,9 @@ class Categoria extends Eloquent
 	{
 		return $this->hasMany(Produto::class);
 	}
+
+    public function clientesProdutos()
+    {
+        return $this->hasManyThrough(ClientesProduto::class, Produto::class);
+	}
 }

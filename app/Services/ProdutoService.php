@@ -17,6 +17,7 @@ use App\Entities\Produto;
 use App\Http\Resources\ClientesProdutoResource;
 use App\Validators\ProdutoRules;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -174,9 +175,18 @@ class ProdutoService extends Service
         return $model;
     }
 
+    /**
+     * @param $hash
+     * @return ClientesProduto
+     * @throws Exception
+     */
     public function entregar($hash): ClientesProduto
     {
         $clienteProduto = $this->verProdutoPelaHash($hash);
+
+        if($clienteProduto->isFinalizado()){
+            throw new Exception('Este produto já foi retirado', Response::HTTP_BAD_REQUEST);
+        }
 
         $clienteProduto->update(['status' => ClientesProduto::FINALIZADO, 'administrador_id' => auth()->id()]);
 

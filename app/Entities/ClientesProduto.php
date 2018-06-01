@@ -163,4 +163,9 @@ class ClientesProduto extends Eloquent
     {
         return $this->isStatus(self::AGUARDANDO_RETIRADA);
     }
+
+    public function isFinalizado()
+    {
+        return $this->isStatus(self::FINALIZADO);
+    }
 }

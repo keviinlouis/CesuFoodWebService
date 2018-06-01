@@ -30,7 +30,7 @@ class CategoriaRules
     static public function store(): array
     {
         return [
-            //TODO Implementar store
+            'nome' => 'required|string|min:3'
         ];
     }
 
@@ -41,7 +41,7 @@ class CategoriaRules
     static public function update(): array
     {
         return [
-            //TODO Implementar update
+            'nome' => 'required|string|min:3'
         ];
     }
 }

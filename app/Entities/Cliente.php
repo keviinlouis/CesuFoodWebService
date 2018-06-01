@@ -53,6 +53,8 @@ class Cliente extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes, StatusScope;
     const FOTO_PERFIL = 'FOTO_PERFIL_CLIENTE';
+    const INATIVO = 0;
+    const ATIVO = 1;
     public static $snakeAttributes = false;
 
 	protected $casts = [
