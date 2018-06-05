@@ -107,11 +107,11 @@ class ClientesProduto extends Eloquent
      * @throws \LaravelQRCode\Exceptions\EmptyTextException
      * @throws \LaravelQRCode\Exceptions\MalformedUrlException
      */
-    public function gerarQrCode()
+    public function gerarQrCode($hash = null)
     {
         $nome = uniqid().'.png';
 
-        QRCode::url('https://cesufood-admin.herokuapp.com/vender/'.$this->hash)
+        QRCode::url('https://cesufood-admin.herokuapp.com/vender/'.$hash?:$this->hash)
             ->setSize(8)
             ->setMargin(2)
             ->setOutfile('storage/temp/'.$nome)
@@ -130,7 +130,7 @@ class ClientesProduto extends Eloquent
             return '';
         }
         $qrCode = $this->qrCode;
-        if(!$qrCode){
+        if(!$qrCode && false){
             $qrCode = $this->qrCode()->create([
                 'nome' => $this->gerarQrCode(),
                 'path' => $this->getPublicPathFiles(),
@@ -138,7 +138,7 @@ class ClientesProduto extends Eloquent
             ]);
         }
 
-        return $qrCode->url;
+        return $qrCode->url ?? '';
     }
 
 
