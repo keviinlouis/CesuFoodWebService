@@ -131,11 +131,16 @@ class ClientesProduto extends Eloquent
         }
         $qrCode = $this->qrCode;
         if(!$qrCode && false){
-            $qrCode = $this->qrCode()->create([
-                'nome' => $this->gerarQrCode(),
-                'path' => $this->getPublicPathFiles(),
-                'tipo' => self::QR_CODE
-            ]);
+            try{
+
+                $qrCode = $this->qrCode()->create([
+                    'nome' => $this->gerarQrCode(),
+                    'path' => $this->getPublicPathFiles(),
+                    'tipo' => self::QR_CODE
+                ]);
+            }catch(\Exception $e){
+                return '';
+            }
         }
 
         return $qrCode->url ?? '';
