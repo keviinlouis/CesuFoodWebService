@@ -139,11 +139,11 @@ class ClientesProduto extends Eloquent
                     'tipo' => self::QR_CODE
                 ]);
             }catch(\Exception $e){
-                return '';
+                return $this->hash;
             }
         }
 
-        return $qrCode->url ?? '';
+        return $qrCode->url ?? $this->hash;
     }
 
 
