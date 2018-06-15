@@ -30,7 +30,7 @@ class ClienteRules
     {
         return [
 
-            'email' => 'required|string|exists:' . (new Cliente)->getTable(),
+            'ra' => 'required|string|exists:' . (new Cliente)->getTable(),
             'senha' => 'required|string',
         ];
     }

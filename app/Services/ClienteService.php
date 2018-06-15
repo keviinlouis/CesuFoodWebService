@@ -180,7 +180,7 @@ class ClienteService extends Service
     {
         $this->validateWithArray($data, ClienteRules::login());
 
-        $model = Cliente::whereEmail($data->get('email'))->withTrashed()->firstOrFail();
+        $model = Cliente::whereRa($data->get('ra'))->withTrashed()->firstOrFail();
 
         if (!$model->checkSenha($data->get('senha'))) {
             throw new ExceptionWithData('Dados Inválidos', Response::HTTP_BAD_REQUEST, ['senha' => ['senha inválida']]);
