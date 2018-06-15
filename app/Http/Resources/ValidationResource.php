@@ -27,8 +27,11 @@ class ValidationResource extends JsonResource
             'data' => $this->resource->validator->errors()
         ];
 
+        foreach($response['data'] as $key => $value){
+            $response['data'][$key] = $this->formatMessage($value);
+        }
+
         if (env('APP_ENV') != 'production') {
-            $exception = $this->resource;
             $response['url'] = $request->path();
             $response['method'] = $request->getMethod();
         }
@@ -46,5 +49,17 @@ class ValidationResource extends JsonResource
     public function withResponse($request, $response): void
     {
         $response->setStatusCode(\Illuminate\Http\Response::HTTP_BAD_REQUEST);
+    }
+
+    private function formatMessage(string $message)
+    {
+        $message = str_replace('.', ' ', $message);
+        $message = str_replace('_', ' ', $message);
+        $message = ucfirst(trim($message));
+        if($message[strlen($message)-1] != '.'){
+            $message .= '.';
+        }
+
+        return $message;
     }
 }
