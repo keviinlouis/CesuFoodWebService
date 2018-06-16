@@ -43,7 +43,7 @@ class ClienteRules
     {
         return [
             'email' => 'required|unique:clientes|email',
-            'ra' => 'required|digits:8|unique:clientes',
+            'ra' => 'required|digits:8|unique:clientes,ra',
             'senha' => 'required|min:6|string',
             'foto_perfil' => ['string', new RuleFileExistsOnTmp()]
         ];
