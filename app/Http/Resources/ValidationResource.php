@@ -24,12 +24,8 @@ class ValidationResource extends JsonResource
         $response = [
             'success' => false,
             'message' => 'Dados Inválidos',
-            'data' => $this->resource->validator->errors()
+            'data' => $this->formatMessage($this->resource->validator->errors())
         ];
-
-        foreach($response['data'] as $key => $value){
-            $response['data'][$key] = $this->formatMessage($value);
-        }
 
         if (env('APP_ENV') != 'production') {
             $response['url'] = $request->path();
@@ -51,15 +47,23 @@ class ValidationResource extends JsonResource
         $response->setStatusCode(\Illuminate\Http\Response::HTTP_BAD_REQUEST);
     }
 
-    private function formatMessage(string $message)
+    private function formatMessage(array $messages)
     {
-        $message = str_replace('.', ' ', $message);
-        $message = str_replace('_', ' ', $message);
-        $message = ucfirst(trim($message));
-        if($message[strlen($message)-1] != '.'){
-            $message .= '.';
+        $data = [];
+        foreach($messages as $input => $errors){
+            foreach($errors as $text){
+                $text = str_replace('.', ' ', $text);
+                $text = str_replace('_', ' ', $text);
+                $text = ucfirst(trim($text));
+                if($text[strlen($text)-1] != '.'){
+                    $text .= '.';
+                }
+                $data[$input][] = $text;
+            }
+
         }
 
-        return $message;
+
+        return $data;
     }
 }
