@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Entities\ClientesProduto;
 use Illuminate\Console\Command;
+use QRCode;
 
 class TestarQrCode extends Command
 {
@@ -12,7 +13,7 @@ class TestarQrCode extends Command
      *
      * @var string
      */
-    protected $signature = 'teste:qrcode {clienteProdutoId}';
+    protected $signature = 'teste:qrcode {hash}';
 
     /**
      * The console command description.
@@ -38,13 +39,14 @@ class TestarQrCode extends Command
      */
     public function handle()
     {
-        $clienteProduto = ClientesProduto::find($this->argument('clienteProdutoId'));
+        $nome = uniqid().'.png';
 
-        if(!$clienteProduto){
-            $this->error('Cliente Produto não encontrado');
-            return;
-        }
+        \Storage::exists('testes')?:\Storage::makeDirectory('testes');
 
-        $clienteProduto->gerarQrCode();
+        QRCode::url('https://cesufood-admin.herokuapp.com/vender/'.$this->argument('hash'))
+            ->setSize(8)
+            ->setMargin(2)
+            ->setOutfile(storage_path('app').'/testes/'.$nome)
+            ->png();
     }
 }
