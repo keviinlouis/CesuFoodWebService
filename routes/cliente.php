@@ -19,6 +19,7 @@ Route::group(['middleware' => 'jwt:cliente'], function(){
     Route::get('me/produto/{id}', 'ProdutoController@meuProduto');
     Route::get('produto', 'ProdutoController@index');
     Route::get('produto/{id}', 'ProdutoController@show');
+    Route::post('produto/{id}', 'ProdutoController@toogleFavoritar');
 
     Route::get('pedido-aberto', 'PedidoController@pedidoAtual');
 

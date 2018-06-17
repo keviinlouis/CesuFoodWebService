@@ -48,6 +48,7 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Query\Builder|Cliente withoutTrashed()
  * @mixin \Eloquent
  * @property-read \App\Entities\Pedido $pedidoAberto
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\Produto[] $favoritos
  */
 class Cliente extends Eloquent
 {
@@ -85,6 +86,14 @@ class Cliente extends Eloquent
     public function clientesProdutos()
     {
         return $this->hasMany(ClientesProduto::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favoritos()
+    {
+        return $this->belongsToMany(Produto::class, 'clientes_produtos_favoritos');
     }
 
     public function pedidos()

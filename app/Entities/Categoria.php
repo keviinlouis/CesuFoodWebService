@@ -29,6 +29,7 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Eloquent\Builder|Categoria whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read mixed $status_label
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\ClientesProduto[] $clientesProdutos
  */
 class Categoria extends Eloquent
 {

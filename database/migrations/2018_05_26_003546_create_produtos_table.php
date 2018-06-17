@@ -19,6 +19,7 @@ class CreateProdutosTable extends Migration {
 			$table->text('descricao', 65535);
 			$table->float('valor', 10);
 			$table->integer('status')->default(1);
+			$table->boolean('is_destaque')->default(0);
             $table->integer('categoria_id')->unsigned()->index('fk_produtos_categorias1_idx');
 			$table->timestamps();
 		});

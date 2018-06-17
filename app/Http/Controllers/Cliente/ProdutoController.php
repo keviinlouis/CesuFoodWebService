@@ -76,5 +76,18 @@ class ProdutoController extends Controller
         return new ClientesProdutoResource($clienteProduto);
     }
 
+    public function toogleFavoritar($id)
+    {
+        $isFavoritado = $this->produtoService->toogleFavoritarProduto($id, auth()->id());
+
+        return response()->json([
+           'success' => true,
+           'data' => [
+               'is_favoritado' => $isFavoritado
+           ],
+           'message' => $isFavoritado ? 'Produto Favoritado' : 'Produto Desfavortiado'
+        ]);
+    }
+
 
 }

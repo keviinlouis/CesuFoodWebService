@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 
 class ValidationResource extends JsonResource
 {
@@ -24,9 +25,8 @@ class ValidationResource extends JsonResource
         $response = [
             'success' => false,
             'message' => 'Dados Inválidos',
-            'data' => $this->formatMessage($this->resource->validator->errors())
+            'data' => $this->formatMessage($this->resource->validator->errors()->toArray())
         ];
-
         if (env('APP_ENV') != 'production') {
             $response['url'] = $request->path();
             $response['method'] = $request->getMethod();
@@ -47,23 +47,34 @@ class ValidationResource extends JsonResource
         $response->setStatusCode(\Illuminate\Http\Response::HTTP_BAD_REQUEST);
     }
 
-    private function formatMessage(array $messages)
+    private function formatMessage($messages)
     {
-        $data = [];
-        foreach($messages as $input => $errors){
-            foreach($errors as $text){
-                $text = str_replace('.', ' ', $text);
-                $text = str_replace('_', ' ', $text);
-                $text = ucfirst(trim($text));
-                if($text[strlen($text)-1] != '.'){
-                    $text .= '.';
+        try{
+            if(is_object($messages)){
+                $messages = (array) $messages;
+            }
+            if(is_array($messages) || $messages instanceof Collection){
+                $data = [];
+                foreach($messages as $input => $errors){
+                    $data[$input] = $this->formatMessage($errors);
                 }
-                $data[$input][] = $text;
+
+                return $data;
+            }
+            if(!is_string($messages)){
+                return '';
+            }
+            $text = str_replace('.', ' ', $messages);
+            $text = str_replace('_', ' ', $text);
+            $text = ucfirst(trim($text));
+            if($text[strlen($text)-1] != '.'){
+                $text .= '.';
             }
 
+            return $text;
+        }catch(\Exception $exception){
+            dd($exception);
+            return '';
         }
-
-
-        return $data;
     }
 }

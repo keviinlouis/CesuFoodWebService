@@ -39,6 +39,8 @@ use App\Traits\StatusScope;
  * @method static \Illuminate\Database\Eloquent\Builder|Produto whereValor($value)
  * @mixin \Eloquent
  * @property-read mixed $status_label
+ * @property bool $is_destaque
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\Produto whereIsDestaque($value)
  */
 class Produto extends Eloquent
 {
@@ -53,7 +55,8 @@ class Produto extends Eloquent
     protected $casts = [
         'valor' => 'float',
         'status' => 'int',
-        'categoria_id' => 'int'
+        'categoria_id' => 'int',
+        'is_destaque' => 'bool'
     ];
 
     protected $fillable = [
@@ -61,7 +64,8 @@ class Produto extends Eloquent
         'descricao',
         'valor',
         'status',
-        'categoria_id'
+        'categoria_id',
+        'is_destaque'
     ];
 
     public function clientesProduto()

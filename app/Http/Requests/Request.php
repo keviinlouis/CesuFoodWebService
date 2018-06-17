@@ -29,9 +29,7 @@ class Request extends RequestBase
 
     public function toCollection($attributes = [])
     {
-        $data = collect($this->all())->reject(function($item){
-            return is_null($item);
-        });
+        $data = collect($this->all());
         if(count($attributes) > 0){
             return collect($data->only($attributes));
         }

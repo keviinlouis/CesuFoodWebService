@@ -64,6 +64,10 @@ class ProdutoService extends Service
             $query->whereValor($valor);
         }
 
+        if($filters->has('destaque')){
+            $query->whereIsDestaque(true);
+        }
+
         if($search = $filters->get('search')){
             $query->where(function(Builder $builder) use ($search) {
                 $search = '%'.$search.'%';
@@ -196,5 +200,15 @@ class ProdutoService extends Service
     public function verProdutoPelaHash($hash):ClientesProduto
     {
         return ClientesProduto::whereHash($hash)->firstOrFail();
+    }
+
+    public function toogleFavoritarProduto($produtoId, $clienteId)
+    {
+        $cliente = (new ClienteService())->show($clienteId);
+
+        $actions = $cliente->favoritos()->toggle($produtoId);
+
+        return !blank($actions['attached']);
+
     }
 }

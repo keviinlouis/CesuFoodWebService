@@ -19,7 +19,8 @@ $factory->define(App\Entities\Produto::class, function () use ($faker) {
         'nome' => $faker->name,
         'descricao' => $faker->realText(),
         'valor' => $faker->randomFloat(2, 10, 100),
-        'categoria_id' => \App\Entities\Categoria::inRandomOrder()->first()->getKey()
+        'categoria_id' => \App\Entities\Categoria::inRandomOrder()->first()->getKey(),
+        'is_destaque' => rand(0, 3) == 1
     ];
     return $data;
 });

@@ -17,6 +17,17 @@ use App\Entities\Produto;
 
 class ProdutoResource extends Resource
 {
+    private $clienteLogado;
+
+    public function __construct($resource)
+    {
+        parent::__construct($resource);
+        if(auth()->user()->isCliente()){
+            $this->clienteLogado = auth()->user()->load('favoritos');
+        }
+
+    }
+
     /**
      * @param Produto $resource
      * @return array
@@ -30,8 +41,13 @@ class ProdutoResource extends Resource
             'valor' => $resource->valor,
             'status' => $resource->status,
             'categoria' => new CategoriaResource($resource->categoria),
-            'fotos' => $resource->url_fotos
+            'fotos' => $resource->url_fotos,
+            'is_destaque' => $resource->is_destaque
         ];
+
+        if($this->clienteLogado){
+            $data['is_favoritado'] = !!$this->clienteLogado->favoritos->where('id', $resource->getKey())->first();
+        }
 
         return $data;
     }
