@@ -37,6 +37,7 @@ class ProdutoRules
             'descricao' => 'required|string|min:10',
             'categoria_id' => 'required|exists:categorias,id',
             'status' => 'required|between:0,1',
+            'is_destaque' => 'required|between:0,1',
             'fotos' => 'required|array|min:1',
             'fotos.*' => ['required', new RuleFileExistsOnTmp()],
         ];

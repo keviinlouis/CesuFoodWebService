@@ -31,4 +31,6 @@ Route::group(['middleware' => 'jwt:cliente'], function(){
     Route::put('pedido/{id}', 'PedidoController@update');
 
     Route::apiResource('cartao', 'CartaoController');
+
+    Route::get('categoria', 'CategoriaController@index');
 });
