@@ -120,6 +120,7 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof UnauthorizedHttpException) {
             $headers = $exception->getHeaders();
+            $code = Response::HTTP_UNAUTHORIZED;
         }
 
         if ($exception instanceof ModelNotFoundException) {
