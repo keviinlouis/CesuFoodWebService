@@ -85,6 +85,7 @@ class Produto extends Eloquent
 
     public function getUrlFotosAttribute()
     {
+        return collect(['https://img.cybercook.uol.com.br/imagens/receitas/610/coxinha-1.jpg'])
         $urls = [];
 
         $this->fotos->each(function (Arquivo $arquivo) use (&$urls) {
